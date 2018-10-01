@@ -48,7 +48,7 @@ class Xml implements FileParserInterface
     /**
      * {@inheritDoc}
      */
-    public static function getSupportedExtensions()
+    public function getSupportedExtensions()
     {
         return array('xml');
     }

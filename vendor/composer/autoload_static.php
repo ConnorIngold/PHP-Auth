@@ -4,11 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
+class ComposerStaticInit56c0ca128583b7e572270e26e43e80e8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
     );
@@ -28,14 +27,11 @@ class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Translation\\' => 30,
             'Slim\\Views\\' => 11,
-            'Slim\\' => 5,
         ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
-            'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
-            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'N' => 
         array (
@@ -43,15 +39,10 @@ class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
         ),
         'I' => 
         array (
-            'Interop\\Container\\' => 18,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
-        ),
-        'F' => 
-        array (
-            'FastRoute\\' => 10,
         ),
         'D' => 
         array (
@@ -84,33 +75,17 @@ class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
         array (
             0 => __DIR__ . '/..' . '/slim/views',
         ),
-        'Slim\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/slim/slim/Slim',
-        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
-        ),
-        'Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PHPMailer\\PHPMailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
-        ),
         'Noodlehaus\\' => 
         array (
             0 => __DIR__ . '/..' . '/hassankhan/config/src',
-        ),
-        'Interop\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
         'Illuminate\\Support\\' => 
         array (
@@ -127,10 +102,6 @@ class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
         'Illuminate\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
-        ),
-        'FastRoute\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
@@ -152,6 +123,10 @@ class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
         ),
         'S' => 
         array (
+            'Slim' => 
+            array (
+                0 => __DIR__ . '/..' . '/slim/slim',
+            ),
             'SecurityLib' => 
             array (
                 0 => __DIR__ . '/..' . '/ircmaxell/security-lib/lib',
@@ -164,22 +139,27 @@ class ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7
                 0 => __DIR__ . '/..' . '/ircmaxell/random-lib/lib',
             ),
         ),
-        'P' => 
-        array (
-            'Pimple' => 
-            array (
-                0 => __DIR__ . '/..' . '/pimple/pimple/src',
-            ),
-        ),
+    );
+
+    public static $classMap = array (
+        'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
+        'PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
+        'PHPMailerOAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauth.php',
+        'PHPMailerOAuthGoogle' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmaileroauthgoogle.php',
+        'POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.pop3.php',
+        'SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.smtp.php',
+        'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
+        'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7::$fallbackDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit99a2fa711a9ff306ff6562f5f04803c7::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit56c0ca128583b7e572270e26e43e80e8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit56c0ca128583b7e572270e26e43e80e8::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit56c0ca128583b7e572270e26e43e80e8::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit56c0ca128583b7e572270e26e43e80e8::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit56c0ca128583b7e572270e26e43e80e8::$classMap;
 
         }, null, ClassLoader::class);
     }

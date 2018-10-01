@@ -27,5 +27,5 @@ interface FileParserInterface
      *
      * @return array
      */
-    public static function getSupportedExtensions();
+    public function getSupportedExtensions();
 }

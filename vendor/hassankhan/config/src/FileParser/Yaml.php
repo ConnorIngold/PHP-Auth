@@ -26,7 +26,7 @@ class Yaml implements FileParserInterface
     public function parse($path)
     {
         try {
-            $data = YamlParser::parse(file_get_contents($path), YamlParser::PARSE_CONSTANT);
+            $data = YamlParser::parse($path);
         } catch (Exception $exception) {
             throw new ParseException(
                 array(
@@ -42,7 +42,7 @@ class Yaml implements FileParserInterface
     /**
      * {@inheritDoc}
      */
-    public static function getSupportedExtensions()
+    public function getSupportedExtensions()
     {
         return array('yaml', 'yml');
     }

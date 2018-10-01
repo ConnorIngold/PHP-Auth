@@ -22,7 +22,7 @@ class Config extends AbstractConfig
      *
      * @var array
      */
-    protected $supportedFileParsers = array(
+    private $supportedFileParsers = array(
         'Noodlehaus\FileParser\Php',
         'Noodlehaus\FileParser\Ini',
         'Noodlehaus\FileParser\Json',
@@ -58,15 +58,11 @@ class Config extends AbstractConfig
 
             // Get file information
             $info      = pathinfo($path);
-            $parts = explode('.', $info['basename']);
-            $extension = array_pop($parts);
-            if ($extension === 'dist') {
-                $extension = array_pop($parts);
-            }
+            $extension = isset($info['extension']) ? $info['extension'] : '';
             $parser    = $this->getParser($extension);
 
             // Try and load file
-            $this->data = array_replace_recursive($this->data, (array) $parser->parse($path));
+            $this->data = array_replace_recursive($this->data, $parser->parse($path));
         }
 
         parent::__construct($this->data);
@@ -77,59 +73,30 @@ class Config extends AbstractConfig
      *
      * @param  string $extension
      *
-     * @return Noodlehaus\FileParser\FileParserInterface
+     * @return Noodlehaus\File\FileInterface
      *
      * @throws UnsupportedFormatException If `$path` is an unsupported file format
      */
     private function getParser($extension)
     {
+        $parser = null;
+
         foreach ($this->supportedFileParsers as $fileParser) {
-            if (in_array($extension, $fileParser::getSupportedExtensions($extension))) {
-                return new $fileParser();
+            $tempParser = new $fileParser;
+
+            if (in_array($extension, $tempParser->getSupportedExtensions($extension))) {
+                $parser = $tempParser;
+                continue;
             }
 
         }
 
         // If none exist, then throw an exception
-        throw new UnsupportedFormatException('Unsupported configuration format');
-    }
-
-    /**
-     * Gets an array of paths
-     *
-     * @param  array $path
-     *
-     * @return array
-     *
-     * @throws FileNotFoundException   If a file is not found at `$path`
-     */
-    private function getPathFromArray($path)
-    {
-        $paths = array();
-
-        foreach ($path as $unverifiedPath) {
-            try {
-                // Check if `$unverifiedPath` is optional
-                // If it exists, then it's added to the list
-                // If it doesn't, it throws an exception which we catch
-                if ($unverifiedPath[0] !== '?') {
-                    $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
-                    continue;
-                }
-                $optionalPath = ltrim($unverifiedPath, '?');
-                $paths = array_merge($paths, $this->getValidPath($optionalPath));
-
-            } catch (FileNotFoundException $e) {
-                // If `$unverifiedPath` is optional, then skip it
-                if ($unverifiedPath[0] === '?') {
-                    continue;
-                }
-                // Otherwise rethrow the exception
-                throw $e;
-            }
+        if ($parser === null) {
+            throw new UnsupportedFormatException('Unsupported configuration format');
         }
 
-        return $paths;
+        return $parser;
     }
 
     /**
@@ -147,7 +114,29 @@ class Config extends AbstractConfig
     {
         // If `$path` is array
         if (is_array($path)) {
-            return $this->getPathFromArray($path);
+            $paths = array();
+            foreach ($path as $unverifiedPath) {
+                try {
+                    // Check if `$unverifiedPath` is optional
+                    // If it exists, then it's added to the list
+                    // If it doesn't, it throws an exception which we catch
+                    if ($unverifiedPath[0] !== '?') {
+                        $paths = array_merge($paths, $this->getValidPath($unverifiedPath));
+                        continue;
+                    }
+                    $optionalPath = ltrim($unverifiedPath, '?');
+                    $paths = array_merge($paths, $this->getValidPath($optionalPath));
+
+                } catch (FileNotFoundException $e) {
+                    // If `$unverifiedPath` is optional, then skip it
+                    if ($unverifiedPath[0] === '?') {
+                        continue;
+                    }
+                    // Otherwise rethrow the exception
+                    throw $e;
+                }
+            }
+            return $paths;
         }
 
         // If `$path` is a directory
