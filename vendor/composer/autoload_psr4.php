@@ -14,6 +14,7 @@ return array(
     'Slim\\Views\\' => array($vendorDir . '/slim/views'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'OHM\\' => array($baseDir . '/app/OHM'),
     'Noodlehaus\\' => array($vendorDir . '/hassankhan/config/src'),
     'Illuminate\\Support\\' => array($vendorDir . '/illuminate/support'),
     'Illuminate\\Database\\' => array($vendorDir . '/illuminate/database'),
