@@ -7,6 +7,7 @@ use Slim\Views\TwigExtension;
 use Noodlehaus\Config;
 
 use OHM\User\User;
+use OHM\Helpers\Hash;
 
 session_cache_limiter(false);
 session_start();
@@ -34,6 +35,10 @@ $app->container->set('user', function() {
     return new User;
 });
 
+$app->container->singleton('hash', function() use ($app) {
+  return new Hash($app->config);
+});
+
 $view = $app->view();
 
 $view->parserOptions = [
@@ -43,3 +48,8 @@ $view->parserOptions = [
 $view->parserExtensions = [
   new TwigExtension
 ];
+
+
+
+
+echo $app->hash->password('ilovejapan');
